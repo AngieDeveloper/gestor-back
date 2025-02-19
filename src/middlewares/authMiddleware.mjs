@@ -1,8 +1,10 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
-dotenv.config();
-const SECRET_KEY = process.env.JWT_SECRET || "secret";
+const SECRET_KEY = process.env.JWT_SECRET;
+if (!SECRET_KEY) {
+  throw new Error("Falta la clave secreta JWT en las variables de entorno");
+}
 
 // Middleware de autenticación
 export const authenticate = (req, res, next) => {
